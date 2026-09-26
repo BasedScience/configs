@@ -1,0 +1,123 @@
+" separate vimrc: configuration for sas programming with jenner
+
+"settings
+"-problem caused when session retains mappings
+set sessionoptions-=options
+"-specify file name
+set laststatus=2
+set statusline=%F
+"-save before switch buffer
+set autowrite
+"-set leader key
+let mapleader='\'
+"-show key strokes
+set showcmd
+"-dont show cursor position
+set noruler
+"-dont insert tabs for spaces
+set expandtab
+"-fix slow escape from insert to normal mode
+set timeoutlen=1000
+set ttimeoutlen=50
+"-set decent textwidth for coding
+set textwidth=120
+"-stop the double space after period
+set nojoinspaces
+"-ignore case when search
+set ignorecase
+"-ignore case when search using buffer completion
+set wildignorecase
+"-search incrementally
+set incsearch
+"-set format options for wrapping etc
+autocmd BufEnter * setl fo-=a fo-=t fo-=c fo-=r fo-=o
+"-appearance
+set list
+set number relativenumber
+"-persistent undo
+set undofile
+set undodir=~/.vim/undodir
+set undolevels=50
+
+"insert mode setup
+"-when move to normal mode move cursor one space
+inoremap <ESC> <Esc>`^
+
+"normal mode set-up
+"-close buffer using bbye plugin
+:nnoremap <Leader>d :Bdelete<CR>
+"-i don't like centre screen on return to buffer
+nnoremap <leader>e 15<C-e>
+"-for zellij-like movements (alt=esc)
+nnoremap <Esc>l <C-w>l
+nnoremap <Esc>h <C-w>h
+"-put term split in normal mode
+tnoremap <leader>n <C-w>N
+"-jump to previous change, excluding current change location
+nnoremap g: g;g;zz
+"-delete line with D instead of dd
+nnoremap dd <nop>
+nnoremap D dd
+"-save with space
+nnoremap <space> :w<CR>
+"-enter makes new line
+nnoremap <Enter> o<ESC>
+"-go to end of word with B
+nnoremap B ge
+"-copy to system clipboard with ctrl c
+xnoremap <C-c> "+y
+
+"plugins
+call plug#begin()
+"-colour theme
+Plug 'sainnhe/everforest'
+"-easy register lookup and paste
+Plug 'junegunn/vim-peekaboo'
+"-movements, this is needed
+Plug 'justinmk/vim-sneak'
+"-make dot command work with vim-sneak
+Plug 'tpope/vim-repeat'
+"-close buffer without closing split
+Plug 'moll/vim-bbye'
+call plug#end()
+
+"plugin settings/options
+"-set colours
+if has('termguicolors')
+  set termguicolors
+endif
+"-for dark version
+set background=dark
+"-set contrast
+let g:everforest_background = 'soft'
+"-for better performance
+let g:everforest_better_performance = 1
+colorscheme everforest"
+"-stop parentheses highlighting etc
+hi! link MatchParen Normal
+"-make t and f work over multiple lines using vim-sneak
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
+
+"netrw setup
+"-narrow dates
+let g:netrw_timefmt = "%Y-%m-%d"
+"-open file in current buffer
+let g:netrw_browse_split = 4
+"-put row numbers
+let g:netrw_bufsettings = 'noma nomod nu nowrap ro nobl'
+"-remove banner at top
+let g:netrw_banner = 0
+"-open dir/file with l (instead of enter) like ranger
+augroup MyNetrw
+  autocmd!
+  autocmd FileType netrw nmap <buffer> l <CR>
+  autocmd FileType netrw nmap <buffer> h -
+  autocmd FileType netrw nmap <buffer> . :Explore ~<CR>
+  autocmd FileType netrw nmap <buffer> p :Explore ~/padlock<CR>
+augroup END
+
+"-disable auto indent
+filetype indent off
