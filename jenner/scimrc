@@ -1,0 +1,6 @@
+set newline_action=j
+set ignorecase
+nnoremap "gg" "^"
+nnoremap "^" "gg"
+nnoremap "G" "#"
+nnoremap "#" "G"
