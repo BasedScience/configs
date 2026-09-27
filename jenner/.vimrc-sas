@@ -20,7 +20,7 @@ set expandtab
 set timeoutlen=1000
 set ttimeoutlen=50
 "-set decent textwidth for coding
-set textwidth=120
+set textwidth=200
 "-stop the double space after period
 set nojoinspaces
 "-ignore case when search
@@ -34,6 +34,8 @@ autocmd BufEnter * setl fo-=a fo-=t fo-=c fo-=r fo-=o
 "-appearance
 set list
 set number relativenumber
+"-put vertical splits to the right
+set splitright
 "-persistent undo
 set undofile
 set undodir=~/.vim/undodir
@@ -44,8 +46,6 @@ set undolevels=50
 inoremap <ESC> <Esc>`^
 
 "normal mode set-up
-"-close buffer using bbye plugin
-:nnoremap <Leader>d :Bdelete<CR>
 "-i don't like centre screen on return to buffer
 nnoremap <leader>e 15<C-e>
 "-for zellij-like movements (alt=esc)
@@ -66,6 +66,43 @@ nnoremap <Enter> o<ESC>
 nnoremap B ge
 "-copy to system clipboard with ctrl c
 xnoremap <C-c> "+y
+
+"jenner stuff
+function! BufSel(pattern)
+  let bufcount = bufnr("$")
+  let currbufnr = 1
+  let nummatches = 0
+  let firstmatchingbufnr = 0
+  while currbufnr <= bufcount
+    if(bufexists(currbufnr))
+      let currbufname = bufname(currbufnr)
+      if(match(currbufname, a:pattern) > -1)
+        echo currbufnr . ": ". bufname(currbufnr)
+        let nummatches += 1
+        let firstmatchingbufnr = currbufnr
+      endif
+    endif
+    let currbufnr = currbufnr + 1
+  endwhile
+  if(nummatches == 1)
+    execute ":buffer ". firstmatchingbufnr
+  elseif(nummatches > 1)
+    let desiredbufnr = input("Enter buffer number: ")
+    if(strlen(desiredbufnr) != 0)
+      execute ":buffer ". desiredbufnr
+    endif
+  else
+    echo "No matching buffers"
+  endif
+endfunction
+"-run program, discard log, trash unwanted lst, open real log (printto sends log and lst to output dir)
+nnoremap <F3> :w<CR>:!jenner -log /dev/null % && trash-put %:r.lst<CR>:e output/run_all.log<CR>
+"-open output in split
+nnoremap <F4> :vs output/run_all.lst<CR>
+"-show list of open programs
+nnoremap <F5> :call BufSel(".sas")<CR>
+"-close buffer using bbye plugin
+nnoremap <Leader>d :Bdelete<CR>
 
 "plugins
 call plug#begin()
@@ -102,8 +139,8 @@ map t <Plug>Sneak_t
 map T <Plug>Sneak_T
 
 "netrw setup
-"-narrow dates
-let g:netrw_timefmt = "%Y-%m-%d"
+"-simple list, no details, no tree
+let g:netrw_liststyle = 0
 "-open file in current buffer
 let g:netrw_browse_split = 4
 "-put row numbers
@@ -117,6 +154,8 @@ augroup MyNetrw
   autocmd FileType netrw nmap <buffer> h -
   autocmd FileType netrw nmap <buffer> . :Explore ~<CR>
   autocmd FileType netrw nmap <buffer> p :Explore ~/padlock<CR>
+"-keep fixed width when open/close splits
+  autocmd FileType netrw setlocal winfixwidth
 augroup END
 
 "-disable auto indent
