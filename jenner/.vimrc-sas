@@ -46,9 +46,9 @@ set undolevels=50
 inoremap <ESC> <Esc>`^
 
 "normal mode set-up
-"-i don't like centre screen on return to buffer
+"-avoid centre screen on return to buffer
 nnoremap <leader>e 15<C-e>
-"-for zellij-like movements (alt=esc)
+"-for zellij-like movements between splits (alt=esc)
 nnoremap <Esc>l <C-w>l
 nnoremap <Esc>h <C-w>h
 "-put term split in normal mode
@@ -95,6 +95,10 @@ function! BufSel(pattern)
     echo "No matching buffers"
   endif
 endfunction
+"-move to term
+nnoremap <F1> <C-w>k<C-w>_i
+"-move to program
+tnoremap <F2> <C-w>N<C-w>j<C-w>_
 "-run program, discard log, trash unwanted lst, open real log (printto sends log and lst to output dir)
 nnoremap <F3> :w<CR>:!jenner -log /dev/null % && trash-put %:r.lst<CR>:e output/run_all.log<CR>
 "-open output in split
@@ -102,7 +106,9 @@ nnoremap <F4> :vs output/run_all.lst<CR>
 "-show list of open programs
 nnoremap <F5> :call BufSel(".sas")<CR>
 "-close buffer using bbye plugin
-nnoremap <Leader>d :Bdelete<CR>
+nnoremap <leader>d :Bdelete<CR>
+"-move to previous buffer
+nnoremap <leader><leader> :b #<CR>
 
 "plugins
 call plug#begin()
