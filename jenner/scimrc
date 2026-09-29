@@ -4,3 +4,31 @@ nnoremap "gg" "^"
 nnoremap "^" "gg"
 nnoremap "G" "#"
 nnoremap "#" "G"
+
+# Everforest Dark Medium
+REDEFINE_COLOR "WHITE"   211 198 170
+REDEFINE_COLOR "BLACK"    45  53  59
+REDEFINE_COLOR "RED"     230 126 128
+REDEFINE_COLOR "GREEN"   167 192 128
+REDEFINE_COLOR "YELLOW"  219 188 127
+REDEFINE_COLOR "BLUE"    127 187 179
+REDEFINE_COLOR "CYAN"    131 192 146
+REDEFINE_COLOR "MAGENTA" 214 153 182
+
+color "type=NORMAL fg=WHITE bg=DEFAULT_COLOR"
+color "type=GRID_EVEN fg=WHITE bg=DEFAULT_COLOR"
+color "type=GRID_ODD fg=WHITE bg=DEFAULT_COLOR"
+
+color "type=HEADINGS fg=GREEN bg=DEFAULT_COLOR bold=1"
+color "type=HEADINGS_ODD fg=GREEN bg=DEFAULT_COLOR bold=1"
+
+color "type=NUMB fg=YELLOW bg=DEFAULT_COLOR"
+color "type=STRG fg=GREEN bg=DEFAULT_COLOR"
+color "type=DATEF fg=CYAN bg=DEFAULT_COLOR"
+color "type=CELL_NEGATIVE fg=RED bg=DEFAULT_COLOR"
+
+color "type=MODE fg=CYAN bg=BLACK bold=1"
+color "type=INFO_MSG fg=BLUE bg=BLACK"
+color "type=ERROR_MSG fg=RED bg=BLACK bold=1"
+
+color "type=CELL_SELECTION_SC fg=BLACK bg=GREEN bold=1"
