@@ -41,11 +41,15 @@ set undofile
 set undodir=~/.vim/undodir
 set undolevels=50
 
-"insert mode setup
+"insert mode
 "-when move to normal mode move cursor one space
 inoremap <ESC> <Esc>`^
 
-"normal mode set-up
+"command mode
+"make %% expand to the current file path
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:p:h').'/' : '%%'
+
+"normal mode
 "-avoid centre screen on return to buffer
 nnoremap <leader>e 15<C-e>
 "-for zellij-like movements between splits (alt=esc)
