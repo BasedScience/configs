@@ -4,6 +4,12 @@ set newline_action=j
 #make searches case-insensitive
 set ignorecase
 
+#numbers as motion counts in normal mode
+set numeric=0
+
+#let text spill into empty cells
+set overlap
+
 #save as i do in vim
 nnoremap "<space>" ":w<CR>"
 
