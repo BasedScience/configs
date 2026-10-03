@@ -1,5 +1,13 @@
+#move down after entering a cell
 set newline_action=j
+
+#make searches case-insensitive
 set ignorecase
+
+#save as i do in vim
+nnoremap "<space>" ":w<CR>"
+
+#use gg/G to jump within a column
 nnoremap "gg" "^"
 nnoremap "^" "gg"
 nnoremap "G" "#"
