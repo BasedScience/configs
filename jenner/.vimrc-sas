@@ -81,7 +81,7 @@ function! BufSel(pattern)
     if(bufexists(currbufnr))
       let currbufname = bufname(currbufnr)
       if(match(currbufname, a:pattern) > -1)
-        echo currbufnr . ": ". bufname(currbufnr)
+        echo currbufnr . ": ". fnamemodify(currbufname, ':t')
         let nummatches += 1
         let firstmatchingbufnr = currbufnr
       endif
@@ -104,7 +104,7 @@ nnoremap <F1> <C-w>k<C-w>_i
 "-move to program
 tnoremap <F2> <C-w>N<C-w>j<C-w>_
 "-run program, discard log, trash unwanted lst, open real log (printto sends log and lst to output dir)
-nnoremap <F3> :w<CR>:!jenner -log /dev/null % && trash-put %:r.lst<CR>:e output/run_all.log<CR>
+nnoremap <F3> :w<CR>:!jenner -log /dev/null %; trash-put %:r.lst<CR>:e %:p:h/output/run_all.log<CR>
 "-open output in split
 nnoremap <F4> :vs output/run_all.lst<CR>
 "-show list of open programs
