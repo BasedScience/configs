@@ -104,7 +104,7 @@ nnoremap <F1> <C-w>k<C-w>_i
 "-move to program
 tnoremap <F2> <C-w>N<C-w>j<C-w>_
 "-run program, discard log, trash unwanted lst, open real log (printto sends log and lst to output dir)
-nnoremap <F3> :w<CR>:!jenner -log /dev/null %; trash-put %:r.lst<CR>:e %:p:h/output/run_all.log<CR>
+nnoremap <F3> :w<CR>:call system('jenner -log /dev/null ' . shellescape(expand('%:p')) . '; trash-put ' . shellescape(expand('%:p:r') . '.lst'))<CR>:e %:p:h/output/run_all.log<CR>
 "-open output in split
 nnoremap <F4> :vs output/run_all.lst<CR>
 "-show list of open programs
