@@ -5,10 +5,6 @@ options.disp_menu = False
 #remove message of the day
 options.motd_url = ''
 
-#hide status bar (this is fixed in newer release)
-options.disp_sidebar_width = 1
-options.disp_sidebar_height = 1
-
 #use terminal colours
 options.color_default = ''
 options.color_status = 'bold'
