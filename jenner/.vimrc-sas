@@ -78,7 +78,7 @@ function! BufSel(pattern)
   let nummatches = 0
   let firstmatchingbufnr = 0
   while currbufnr <= bufcount
-    if(bufexists(currbufnr))
+    if(buflisted(currbufnr))
       let currbufname = bufname(currbufnr)
       if(match(currbufname, a:pattern) > -1)
         echo currbufnr . ": ". fnamemodify(currbufname, ':t')
