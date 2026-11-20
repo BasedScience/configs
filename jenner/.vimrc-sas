@@ -161,7 +161,6 @@ augroup MyNetrw
   autocmd FileType netrw nmap <buffer> l <CR>
   autocmd FileType netrw nmap <buffer> h -
   autocmd FileType netrw nmap <buffer> . :Explore ~<CR>
-  autocmd FileType netrw nmap <buffer> p :Explore ~/padlock<CR>
 "-keep fixed width when open/close splits
   autocmd FileType netrw setlocal winfixwidth
 augroup END
